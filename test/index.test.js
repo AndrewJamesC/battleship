@@ -50,6 +50,11 @@ describe("gameBoard tests", () => {
     playerGameboard.addShips(battleship, 4, 4, "horizontal");
     playerGameboard.receiveAttack(4, 5);
 
-    expect(expect(battleship.hits).toBe(1));
+    expect(battleship.hits).toBe(1);
+  });
+
+  test("should show co-ords of missed shot", () => {
+    playerGameboard.receiveAttack(10, 10);
+    expect(playerGameboard.miss).toEqual([[10, 10]]);
   });
 });

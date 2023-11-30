@@ -3,6 +3,7 @@ import { battleship } from ".";
 class Gameboard {
   constructor() {
     this.ships = {};
+    this.miss = [];
   }
 
   addShips(shipsName, x, y, direction) {
@@ -34,8 +35,10 @@ class Gameboard {
     }
   }
   receiveAttack(x, y) {
+    let hit = false;
     for (const ship in this.ships) {
       if (this.ships[ship].x.includes(x) && this.ships[ship].x.includes(y)) {
+        hit = true;
         switch (ship) {
           case "carrier":
             carrier.hit();
@@ -54,6 +57,9 @@ class Gameboard {
             break;
         }
       }
+    }
+    if (!hit) {
+      this.miss.push([x, y]);
     }
   }
 }
