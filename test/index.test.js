@@ -36,7 +36,7 @@ describe("gameBoard tests", () => {
   test("should have battleship at coordinates [1, 1]", () => {
     playerGameboard.addShips(battleship, 1, 1, "horizontal");
     expect(playerGameboard.ships).toStrictEqual({
-      battleship: { x: [1, 2, 3, 4], y: 1, direction: "horizontal" },
+      battleship: { x: [1, 2, 3, 4], y: [1], direction: "horizontal" },
     });
   });
 
@@ -46,9 +46,10 @@ describe("gameBoard tests", () => {
   });
 
   test("should show a hit on the battleship", () => {
+    battleship.hits = 0;
     playerGameboard.addShips(battleship, 4, 4, "horizontal");
-    playerGameboard.recieveAttack(5, 5);
+    playerGameboard.receiveAttack(4, 5);
 
-    expect(battleship.hits).toBe(1);
+    expect(expect(battleship.hits).toBe(1));
   });
 });

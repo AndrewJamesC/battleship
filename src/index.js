@@ -9,6 +9,7 @@ const destroyer = new Ship("destroyer", 2);
 
 const playerGameboard = new Gameboard();
 
-playerGameboard.addShips(battleship, 1, 1);
+playerGameboard.addShips(battleship, 4, 4, "horizontal");
+playerGameboard.receiveAttack(5, 4);
 
 export { battleship, playerGameboard };

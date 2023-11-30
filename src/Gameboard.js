@@ -1,3 +1,5 @@
+import { battleship } from ".";
+
 class Gameboard {
   constructor() {
     this.ships = {};
@@ -8,7 +10,7 @@ class Gameboard {
       if (direction === "horizontal") {
         this.ships[shipsName.type] = {
           x: [x],
-          y: y,
+          y: [y],
           direction: direction,
         };
         let count = x + 1;
@@ -19,7 +21,7 @@ class Gameboard {
         }
       } else {
         this.ships[shipsName.type] = {
-          x: x,
+          x: [x],
           y: [y],
           direction: direction,
         };
@@ -27,6 +29,29 @@ class Gameboard {
         while (count <= y + shipsName.length - 1) {
           this.ships[shipsName.type].y.push(count);
           count++;
+        }
+      }
+    }
+  }
+  receiveAttack(x, y) {
+    for (const ship in this.ships) {
+      if (this.ships[ship].x.includes(x) && this.ships[ship].x.includes(y)) {
+        switch (ship) {
+          case "carrier":
+            carrier.hit();
+            break;
+          case "battleship":
+            battleship.hit();
+            break;
+          case "cruiser":
+            cruiser.hit();
+            break;
+          case "submarine":
+            submarine.hit();
+            break;
+          case "destroyer":
+            destroyer.hit();
+            break;
         }
       }
     }
