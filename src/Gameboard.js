@@ -1,71 +1,57 @@
-import { battleship } from ".";
+import Ship from "./ship";
 
 class Gameboard {
   constructor() {
     this.ships = {};
     this.miss = [];
+    this.battleship = new Ship("battleship", 4);
+    this.carrier = new Ship("carrier", 5);
+    this.cruiser = new Ship("cruiser", 3);
+    this.submarine = new Ship("submarine", 3);
+    this.destroyer = new Ship("destroyer", 2);
+
+    this.ships = {
+      battleship: this.battleship,
+      carrier: this.carrier,
+      cruiser: this.cruiser,
+      submarine: this.submarine,
+      destroyer: this.destroyer,
+    };
   }
 
   addShips(shipsName, x, y, direction) {
-    if (shipsName.length - 1 + x <= 10 && shipsName.length - 1 + y <= 10) {
-      if (direction === "horizontal") {
-        this.ships[shipsName.type] = {
-          x: [x],
-          y: [y],
-          direction: direction,
-        };
-        let count = x + 1;
-        while (count <= x + shipsName.length - 1) {
-          this.ships[shipsName.type].x.push(count);
+    const ship = this.ships[shipsName.type];
 
-          count++;
-        }
-      } else {
-        this.ships[shipsName.type] = {
-          x: [x],
-          y: [y],
-          direction: direction,
-        };
-        let count = y + 1;
-        while (count <= y + shipsName.length - 1) {
-          this.ships[shipsName.type].y.push(count);
-          count++;
-        }
+    if (
+      (direction === "horizontal" && x + shipsName.length <= 10 && y <= 10) ||
+      (direction === "vertical" && x <= 10 && y + shipsName.length <= 10)
+    ) {
+      ship.x = [];
+      ship.y = [];
+
+      for (let i = 0; i < shipsName.length; i++) {
+        ship.x.push(direction === "horizontal" ? x + i : x);
+        ship.y.push(direction === "vertical" ? y + i : y);
       }
     }
   }
+
   receiveAttack(x, y) {
     let hit = false;
+
     for (const ship in this.ships) {
-      if (this.ships[ship].x.includes(x) && this.ships[ship].x.includes(y)) {
+      if (this.ships[ship].x.includes(x) && this.ships[ship].y.includes(y)) {
         hit = true;
-        switch (ship) {
-          case "carrier":
-            carrier.hit();
-            carrier.isSunk();
-            break;
-          case "battleship":
-            battleship.hit();
-            battleship.isSunk();
-            break;
-          case "cruiser":
-            cruiser.hit();
-            cruiser.isSunk();
-            break;
-          case "submarine":
-            submarine.hit();
-            submarine.isSunk();
-            break;
-          case "destroyer":
-            destroyer.hit();
-            destroyer.isSunk();
-            break;
-        }
+        this.ships[ship].hit();
+        this.ships[ship].isSunk();
+        break;
       }
     }
+
     if (!hit) {
       this.miss.push([x, y]);
     }
   }
 }
+
 export default Gameboard;
