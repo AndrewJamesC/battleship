@@ -1,5 +1,11 @@
 // test/index.test.js
-import { battleship, playerGameboard } from "../src/index";
+import {
+  battleship,
+  playerGameboard,
+  humanPlayer,
+  computerGameboard,
+  computerPlayer,
+} from "../src/index";
 
 describe("Battleship tests", () => {
   beforeEach(() => {
@@ -78,5 +84,20 @@ describe("gameBoard tests", () => {
     playerGameboard.receiveAttack(4, 8);
 
     expect(battleship.isSunk()).toBe(false);
+  });
+});
+
+describe("Player tests", () => {
+  test("player can attack enemy gameBoard", () => {
+    humanPlayer.playerAttack(1, 1);
+    expect(computerGameboard.miss).toEqual([[1, 1]]);
+  });
+
+  test("computer can attack enemy gameBoard", () => {
+    playerGameboard.miss = [];
+    playerGameboard.ships = {};
+    computerPlayer.computerAttack();
+    expect(playerGameboard.miss[0][0].toString()).toMatch(/[1-9]|10/);
+    expect(playerGameboard.miss[0][1].toString()).toMatch(/[1-9]|10/);
   });
 });
