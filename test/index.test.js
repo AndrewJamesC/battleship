@@ -57,4 +57,26 @@ describe("gameBoard tests", () => {
     playerGameboard.receiveAttack(10, 10);
     expect(playerGameboard.miss).toEqual([[10, 10]]);
   });
+
+  test("show battleship is sunk", () => {
+    battleship.hits = 0;
+    playerGameboard.addShips(battleship, 4, 4, "horizontal");
+    playerGameboard.receiveAttack(4, 4);
+    playerGameboard.receiveAttack(4, 5);
+    playerGameboard.receiveAttack(4, 6);
+    playerGameboard.receiveAttack(4, 7);
+
+    expect(battleship.isSunk()).toBe(true);
+  });
+
+  test("show battleship not sunk", () => {
+    battleship.hits = 0;
+    playerGameboard.addShips(battleship, 4, 4, "horizontal");
+
+    playerGameboard.receiveAttack(4, 6);
+    playerGameboard.receiveAttack(4, 7);
+    playerGameboard.receiveAttack(4, 8);
+
+    expect(battleship.isSunk()).toBe(false);
+  });
 });

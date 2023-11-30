@@ -42,18 +42,23 @@ class Gameboard {
         switch (ship) {
           case "carrier":
             carrier.hit();
+            carrier.isSunk();
             break;
           case "battleship":
             battleship.hit();
+            battleship.isSunk();
             break;
           case "cruiser":
             cruiser.hit();
+            cruiser.isSunk();
             break;
           case "submarine":
             submarine.hit();
+            submarine.isSunk();
             break;
           case "destroyer":
             destroyer.hit();
+            destroyer.isSunk();
             break;
         }
       }
