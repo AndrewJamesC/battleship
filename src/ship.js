@@ -1,14 +1,14 @@
 class Ship {
-  constructor(type, length) {
+  constructor(type, shipLength) {
     this.type = type;
-    this.length = length;
+    this.shipLength = shipLength;
     this.hits = 0;
   }
   hit() {
     this.hits++;
   }
   isSunk() {
-    return this.length === this.hits;
+    return this.shipLength === this.hits;
   }
 }
 

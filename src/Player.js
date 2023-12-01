@@ -1,7 +1,10 @@
-import { computerGameboard, playerGameboard } from "../src/index";
+import { computerGameboard, playerGameboard, gameLoop } from "../src/index";
 
 class Player {
-  constructor() {
+  constructor(playerGameboard, computerGameboard) {
+    this.playerGameboard = playerGameboard;
+    this.computerGameboard = computerGameboard;
+
     this.attackedLocation = [];
   }
   computerAttack() {
@@ -21,7 +24,7 @@ class Player {
     }
 
     this.attackedLocation.push([xValue, yValue]);
-    playerGameboard.receiveAttack(xValue, yValue);
+    this.playerGameboard.receiveAttack(xValue, yValue);
   }
   playerAttack(x, y) {
     const alreadyAttacked = this.attackedLocation.some(
@@ -31,7 +34,7 @@ class Player {
       console.log("Choose new co-ordinates");
     } else {
       this.attackedLocation.push([x, y]);
-      computerGameboard.receiveAttack(x, y);
+      this.computerGameboard.receiveAttack(x, y);
     }
   }
 }
