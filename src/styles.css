@@ -1,6 +1,14 @@
+@font-face {
+  font-family: Ftyoverkillironcladnc-1Lj4;
+  src: url(./assets/Ftyoverkillironcladnc-1Lj4.otf);
+  font-weight: 600;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -17,33 +25,81 @@ header {
   justify-content: center;
   align-items: center;
   background-color: rgb(6, 6, 59);
-  color: slategray;
-  font-size: 40px;
   height: 10%;
 }
 
+h1 {
+  font-family: "Ftyoverkillironcladnc-1Lj4", "Franklin Gothic Medium",
+    "Arial Narrow", Arial, sans-serif;
+  color: #000;
+  background: linear-gradient(
+    45deg,
+    #999 5%,
+    #fff 10%,
+    #ccc 30%,
+    #ddd 50%,
+    #ccc 70%,
+    #fff 80%,
+    #999 95%
+  );
+  font-size: 50px;
+  padding: 10px 45px;
+  border-radius: 30%;
+}
+
 main {
-  height: 80%;
+  height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 .instructions {
   text-align: center;
-  background-color: gray;
+  align-items: center;
+  background: linear-gradient(
+    45deg,
+    #999 5%,
+    #fff 10%,
+    #ccc 30%,
+    #ddd 50%,
+    #ccc 70%,
+    #fff 80%,
+    #999 95%
+  );
+  height: 10%;
+  color: black;
+  font-size: 2.5rem;
+  margin-top: 20px;
+  font-weight: 900;
 }
 h2 {
   text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: black;
 }
 .game-area-container {
+  border: 1px solid black;
   display: flex;
   margin: auto;
+  padding: 0 165px;
+  background: linear-gradient(
+    45deg,
+    #999 5%,
+    #fff 10%,
+    #ccc 30%,
+    #ddd 50%,
+    #ccc 70%,
+    #fff 80%,
+    #999 95%
+  );
+  border-radius: 38%;
 }
 .player-board-container,
 .computer-board-container {
-  height: 600px;
+  height: 580px;
   width: 500px;
-  margin: 5vw;
+  margin: 1.5vw 5vw 5vw 5vw;
 }
 
 .row {
