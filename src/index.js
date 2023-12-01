@@ -1,4 +1,4 @@
-import Ship from "./ship";
+import "./styles.css";
 import Gameboard from "./Gameboard";
 import Player from "./Player";
 

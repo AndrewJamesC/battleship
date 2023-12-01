@@ -49,23 +49,6 @@ class Gameboard {
     }
   }
 
-  // addShips(shipsName, x, y, direction) {
-  //   const ship = this.ships[shipsName.type];
-
-  //   if (
-  //     (direction === "horizontal" && x + shipsName.length <= 10 && y <= 10) ||
-  //     (direction === "vertical" && x <= 10 && y + shipsName.length <= 10)
-  //   ) {
-  //     ship.x = [x];
-  //     ship.y = [y];
-
-  //     for (let i = 1; i < shipsName.length; i++) {
-  //       ship.x.push(direction === "horizontal" ? x + i : x);
-  //       ship.y.push(direction === "vertical" ? y + i : y);
-  //     }
-  //   }
-  // }
-
   receiveAttack(x, y) {
     let hit = false;
 
