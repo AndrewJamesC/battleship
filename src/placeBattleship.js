@@ -1,4 +1,5 @@
 import { gameLoop } from "./index";
+import { placeCruiser } from "./placeCruiser";
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
@@ -115,7 +116,7 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
     playerGameboard.addShips("battleship", xValue, yValue, "horizontal");
     console.log(playerGameboard);
     removeEventListeners();
-
+    placeCruiser(playerGameboard);
     return;
   }
 }
@@ -134,6 +135,7 @@ function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
     playerGameboard.addShips("battleship", xValue, yValue, "vertical");
     console.log(playerGameboard);
     removeEventListeners();
+    placeCruiser(playerGameboard);
     return;
   }
 }

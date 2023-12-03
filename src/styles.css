@@ -135,3 +135,7 @@ button {
 .battleship {
   background-color: chartreuse;
 }
+
+.cruiser {
+  background-color: chocolate;
+}
