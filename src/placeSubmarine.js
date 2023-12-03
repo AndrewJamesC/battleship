@@ -1,41 +1,38 @@
 import { gameLoop } from "./index";
-import { placeCruiser } from "./placeCruiser";
+import { placeDestroyer } from "./placeDestroyer";
+
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
 function handleHorizontalPlacement(targetCell, xValue, yValue) {
-  if (xValue <= 7) {
+  if (xValue <= 8) {
     targetCell.classList.add("hover");
 
     const targetPlusOne = `${xValue + 1}-${yValue}`;
     const targetPlusTwo = `${xValue + 2}-${yValue}`;
-    const targetPlusThree = `${xValue + 3}-${yValue}`;
 
     document.querySelector(`#P${targetPlusOne}`).classList.add("hover");
     document.querySelector(`#P${targetPlusTwo}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("hover");
-  } else if (xValue > 7) {
+  } else if (xValue > 8) {
     targetCell.classList.add("noPlaceHere");
   }
 }
 
 function handleVerticalPlacement(targetCell, xValue, yValue) {
-  if (yValue <= 7) {
+  if (yValue <= 8) {
     targetCell.classList.add("hover");
 
     const targetPlusOne = `${xValue}-${yValue + 1}`;
     const targetPlusTwo = `${xValue}-${yValue + 2}`;
-    const targetPlusThree = `${xValue}-${yValue + 3}`;
 
     document.querySelector(`#P${targetPlusOne}`).classList.add("hover");
     document.querySelector(`#P${targetPlusTwo}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("hover");
-  } else if (yValue > 7) {
+  } else if (yValue > 8) {
     targetCell.classList.add("noPlaceHere");
   }
 }
 
-function placeBattleship(playerGameboard) {
+function placesubmarine(playerGameboard) {
   const playerCellsNodelist = document.querySelectorAll(".player");
   const playerCellsArr = [...playerCellsNodelist];
   const directionButton = document.querySelector(".direction-btn");
@@ -57,7 +54,7 @@ function placeBattleship(playerGameboard) {
 
     e.target.classList.remove("hover", "noPlaceHere");
 
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 2; i++) {
       const targetIDHorizontal = `P${xValue + i}-${yValue}`;
       const targetElemHorizontal = document.querySelector(
         `#${targetIDHorizontal}`
@@ -103,37 +100,33 @@ function placeBattleship(playerGameboard) {
 }
 
 function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (xValue <= 7) {
-    targetCell.classList.add("battleship");
+  if (xValue <= 8) {
+    targetCell.classList.add("submarine");
     const targetPlusOne = `${xValue + 1}-${yValue}`;
     const targetPlusTwo = `${xValue + 2}-${yValue}`;
-    const targetPlusThree = `${xValue + 3}-${yValue}`;
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
-    document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusOne}`).classList.add("submarine");
+    document.querySelector(`#P${targetPlusTwo}`).classList.add("submarine");
 
-    playerGameboard.addShips("battleship", xValue, yValue, "horizontal");
+    playerGameboard.addShips("submarine", xValue, yValue, "horizontal");
     removeEventListeners();
-    placeCruiser(playerGameboard);
+    placeDestroyer(playerGameboard);
     return;
   }
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
   if (yValue <= 7) {
-    targetCell.classList.add("battleship");
+    targetCell.classList.add("submarine");
     const targetPlusOne = `${xValue}-${yValue + 1}`;
     const targetPlusTwo = `${xValue}-${yValue + 2}`;
-    const targetPlusThree = `${xValue}-${yValue + 3}`;
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
-    document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusOne}`).classList.add("submarine");
+    document.querySelector(`#P${targetPlusTwo}`).classList.add("submarine");
 
-    playerGameboard.addShips("battleship", xValue, yValue, "vertical");
+    playerGameboard.addShips("submarine", xValue, yValue, "vertical");
     removeEventListeners();
-    placeCruiser(playerGameboard);
+    placeDestroyer(playerGameboard);
     return;
   }
 }
@@ -146,4 +139,4 @@ function removeEventListeners() {
   });
 }
 
-export { placeBattleship };
+export { placesubmarine };

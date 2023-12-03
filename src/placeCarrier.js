@@ -140,7 +140,6 @@ function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
     document.querySelector(`#P${targetPlusFour}`).classList.add("carrier");
 
     playerGameboard.addShips("carrier", xValue, yValue, "vertical");
-
     removeEventListeners();
     placeBattleship(playerGameboard);
     return;

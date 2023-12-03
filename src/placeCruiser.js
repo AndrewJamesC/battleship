@@ -1,4 +1,5 @@
 import { gameLoop } from "./index";
+import { placesubmarine } from "./placeSubmarine";
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
@@ -108,13 +109,13 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
 
     playerGameboard.addShips("cruiser", xValue, yValue, "horizontal");
     removeEventListeners();
-
+    placesubmarine(playerGameboard);
     return;
   }
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (yValue <= 7) {
+  if (yValue <= 8) {
     targetCell.classList.add("cruiser");
     const targetPlusOne = `${xValue}-${yValue + 1}`;
     const targetPlusTwo = `${xValue}-${yValue + 2}`;
@@ -123,8 +124,9 @@ function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
     document.querySelector(`#P${targetPlusTwo}`).classList.add("cruiser");
 
     playerGameboard.addShips("cruiser", xValue, yValue, "vertical");
-
     removeEventListeners();
+    placesubmarine(playerGameboard);
+
     return;
   }
 }
