@@ -39,6 +39,8 @@ function placeBattleship(playerGameboard) {
   const playerCellsNodelist = document.querySelectorAll(".player");
   const playerCellsArr = [...playerCellsNodelist];
   const directionButton = document.querySelector(".direction-btn");
+  const instructions = (document.querySelector(".instructions").innerHTML =
+    "Player 1: Place your battleship on the board.");
 
   function handleMouseover(e) {
     const xValue = Number(e.target.id.slice(1).split("-")[0]);
@@ -128,7 +130,7 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (xValue <= 7) {
+  if (yValue <= 7) {
     const targetPlusOne = document.querySelector(`#P${xValue}-${yValue + 1}`);
     const targetPlusTwo = document.querySelector(`#P${xValue}-${yValue + 2}`);
     const targetPlusThree = document.querySelector(`#P${xValue}-${yValue + 3}`);

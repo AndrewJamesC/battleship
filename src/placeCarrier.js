@@ -43,6 +43,8 @@ function placeCarrier(playerGameboard) {
   const playerCellsNodelist = document.querySelectorAll(".player");
   const playerCellsArr = [...playerCellsNodelist];
   const directionButton = document.querySelector(".direction-btn");
+  const instructions = (document.querySelector(".instructions").innerHTML =
+    "Player 1: Place your carrier on the board.");
 
   function handleMouseover(e) {
     const xValue = Number(e.target.id.slice(1).split("-")[0]);
