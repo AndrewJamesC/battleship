@@ -86,6 +86,19 @@ class Gameboard {
       this.miss.push([x, y]);
     }
   }
+  computerAddShips(shipName) {
+    function getxy() {
+      return {
+        x: Math.floor(Math.random() * 10) + 1,
+        y: Math.floor(Math.random() * 10) + 1,
+        direction:
+          Math.floor(Math.random() * 2) + 1 === 2 ? "horizontal" : "vertical",
+      };
+    }
+
+    const { x, y, direction } = getxy();
+    this.addShips(shipName, x, y, direction);
+  }
 }
 
 export default Gameboard;
