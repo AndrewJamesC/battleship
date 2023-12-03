@@ -95,6 +95,11 @@ h2 {
   );
   border-radius: 38%;
 }
+button {
+  height: fit-content;
+  margin: auto;
+  font-size: 20px;
+}
 .player-board-container,
 .computer-board-container {
   height: 580px;
@@ -109,7 +114,24 @@ h2 {
   justify-content: center;
 }
 
-.row div {
+.player,
+.computer {
   background-color: rgba(6, 6, 59, 0.8);
   border: 3px solid rgba(0, 0, 0, 0.8);
+}
+
+.hover {
+  background-color: #999;
+}
+
+.noPlaceHere {
+  cursor: not-allowed;
+}
+
+.carrier {
+  background-color: black;
+}
+
+.battleship {
+  background-color: chartreuse;
 }
