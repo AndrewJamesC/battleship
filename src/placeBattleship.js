@@ -104,90 +104,50 @@ function placeBattleship(playerGameboard) {
 
 function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
   if (xValue <= 7) {
-    const targetPlusOne = `${xValue + 1}-${yValue}`;
-    const targetPlusTwo = `${xValue + 2}-${yValue}`;
-    const targetPlusThree = `${xValue + 3}-${yValue}`;
-    if (
+    const targetPlusOne = document.querySelector(`#P${xValue + 1}-${yValue}`);
+    const targetPlusTwo = document.querySelector(`#P${xValue + 2}-${yValue}`);
+    const targetPlusThree = document.querySelector(`#P${xValue + 3}-${yValue}`);
+
+    const hasCarrierClass =
       targetCell.classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusOne}`)
-        .classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusTwo}`)
-        .classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusThree}`)
-        .classList.contains("carrier")
-    ) {
-    }
-    if (
-      (targetCell.classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusOne}`)
-          .classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusTwo}`)
-          .classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusThree}`)
-          .classList.contains("carrier")) === false
-    ) {
+      targetPlusOne.classList.contains("carrier") ||
+      targetPlusTwo.classList.contains("carrier") ||
+      targetPlusThree.classList.contains("carrier");
+
+    if (!hasCarrierClass) {
       targetCell.classList.add("battleship");
-      document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
-      document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
-      document
-        .querySelector(`#P${targetPlusThree}`)
-        .classList.add("battleship");
+      targetPlusOne.classList.add("battleship");
+      targetPlusTwo.classList.add("battleship");
+      targetPlusThree.classList.add("battleship");
 
       playerGameboard.addShips("battleship", xValue, yValue, "horizontal");
       removeEventListeners();
       placeCruiser(playerGameboard);
-      return;
     }
   }
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (yValue <= 7) {
-    const targetPlusOne = `${xValue}-${yValue + 1}`;
-    const targetPlusTwo = `${xValue}-${yValue + 2}`;
-    const targetPlusThree = `${xValue}-${yValue + 3}`;
-    if (
+  if (xValue <= 7) {
+    const targetPlusOne = document.querySelector(`#P${xValue}-${yValue + 1}`);
+    const targetPlusTwo = document.querySelector(`#P${xValue}-${yValue + 2}`);
+    const targetPlusThree = document.querySelector(`#P${xValue}-${yValue + 3}`);
+
+    const hasCarrierClass =
       targetCell.classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusOne}`)
-        .classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusTwo}`)
-        .classList.contains("carrier") ||
-      document
-        .querySelector(`#P${targetPlusThree}`)
-        .classList.contains("carrier")
-    ) {
-    }
-    if (
-      (targetCell.classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusOne}`)
-          .classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusTwo}`)
-          .classList.contains("carrier") ||
-        document
-          .querySelector(`#P${targetPlusThree}`)
-          .classList.contains("carrier")) === false
-    ) {
+      targetPlusOne.classList.contains("carrier") ||
+      targetPlusTwo.classList.contains("carrier") ||
+      targetPlusThree.classList.contains("carrier");
+
+    if (!hasCarrierClass) {
       targetCell.classList.add("battleship");
-      document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
-      document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
-      document
-        .querySelector(`#P${targetPlusThree}`)
-        .classList.add("battleship");
+      targetPlusOne.classList.add("battleship");
+      targetPlusTwo.classList.add("battleship");
+      targetPlusThree.classList.add("battleship");
 
       playerGameboard.addShips("battleship", xValue, yValue, "vertical");
       removeEventListeners();
       placeCruiser(playerGameboard);
-      return;
     }
   }
 }
