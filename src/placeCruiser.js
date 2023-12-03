@@ -1,45 +1,36 @@
 import { gameLoop } from "./index";
-import { placeBattleship } from "./placeBattleship";
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
 function handleHorizontalPlacement(targetCell, xValue, yValue) {
-  if (xValue <= 6) {
+  if (xValue <= 8) {
     targetCell.classList.add("hover");
 
     const targetPlusOne = `${xValue + 1}-${yValue}`;
     const targetPlusTwo = `${xValue + 2}-${yValue}`;
-    const targetPlusThree = `${xValue + 3}-${yValue}`;
-    const targetPlusFour = `${xValue + 4}-${yValue}`;
 
     document.querySelector(`#P${targetPlusOne}`).classList.add("hover");
     document.querySelector(`#P${targetPlusTwo}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusFour}`).classList.add("hover");
-  } else if (xValue > 6) {
+  } else if (xValue > 8) {
     targetCell.classList.add("noPlaceHere");
   }
 }
 
 function handleVerticalPlacement(targetCell, xValue, yValue) {
-  if (yValue <= 6) {
+  if (yValue <= 8) {
     targetCell.classList.add("hover");
 
     const targetPlusOne = `${xValue}-${yValue + 1}`;
     const targetPlusTwo = `${xValue}-${yValue + 2}`;
-    const targetPlusThree = `${xValue}-${yValue + 3}`;
-    const targetPlusFour = `${xValue}-${yValue + 4}`;
 
     document.querySelector(`#P${targetPlusOne}`).classList.add("hover");
     document.querySelector(`#P${targetPlusTwo}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("hover");
-    document.querySelector(`#P${targetPlusFour}`).classList.add("hover");
-  } else if (yValue > 6) {
+  } else if (yValue > 8) {
     targetCell.classList.add("noPlaceHere");
   }
 }
 
-function placeCarrier(playerGameboard) {
+function placeCruiser(playerGameboard) {
   const playerCellsNodelist = document.querySelectorAll(".player");
   const playerCellsArr = [...playerCellsNodelist];
   const directionButton = document.querySelector(".direction-btn");
@@ -61,7 +52,7 @@ function placeCarrier(playerGameboard) {
 
     e.target.classList.remove("hover", "noPlaceHere");
 
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 2; i++) {
       const targetIDHorizontal = `P${xValue + i}-${yValue}`;
       const targetElemHorizontal = document.querySelector(
         `#${targetIDHorizontal}`
@@ -97,61 +88,48 @@ function placeCarrier(playerGameboard) {
     cell.addEventListener("click", handleClick);
   });
 
-  if (!directionButton.hasAttribute("data-listener-attached")) {
-    directionButton.addEventListener("click", () => {
-      directionButton.classList.toggle("vertical");
-    });
-
-    directionButton.setAttribute("data-listener-attached", true);
-  }
+  directionButton.addEventListener("click", () => {
+    directionButton.classList.toggle("vertical");
+  });
 }
 
 function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (xValue <= 6) {
-    targetCell.classList.add("carrier");
+  if (xValue <= 7) {
+    targetCell.classList.add("battleship");
     const targetPlusOne = `${xValue + 1}-${yValue}`;
     const targetPlusTwo = `${xValue + 2}-${yValue}`;
     const targetPlusThree = `${xValue + 3}-${yValue}`;
-    const targetPlusFour = `${xValue + 4}-${yValue}`;
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusTwo}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusFour}`).classList.add("carrier");
+    document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
 
-    playerGameboard.addShips("carrier", xValue, yValue, "horizontal");
+    playerGameboard.addShips("battleship", xValue, yValue, "horizontal");
     removeEventListeners();
-    placeBattleship(playerGameboard);
+
     return;
   }
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (yValue <= 6) {
-    targetCell.classList.add("carrier");
+  if (yValue <= 7) {
+    targetCell.classList.add("battleship");
     const targetPlusOne = `${xValue}-${yValue + 1}`;
     const targetPlusTwo = `${xValue}-${yValue + 2}`;
     const targetPlusThree = `${xValue}-${yValue + 3}`;
-    const targetPlusFour = `${xValue}-${yValue + 4}`;
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusTwo}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusThree}`).classList.add("carrier");
-    document.querySelector(`#P${targetPlusFour}`).classList.add("carrier");
+    document.querySelector(`#P${targetPlusOne}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusTwo}`).classList.add("battleship");
+    document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
 
-    playerGameboard.addShips("carrier", xValue, yValue, "vertical");
+    playerGameboard.addShips("battleship", xValue, yValue, "vertical");
 
     removeEventListeners();
-    placeBattleship(playerGameboard);
     return;
   }
 }
 
 function removeEventListeners() {
-  const directionButton = document.querySelector(".direction-btn");
-  directionButton.removeEventListener("click", () => {
-    directionButton.classList.toggle("vertical");
-  });
   const playerCellsNodelist = document.querySelectorAll(".player");
   const playerCellsArr = [...playerCellsNodelist];
   playerCellsArr.forEach((cell) => {
@@ -159,4 +137,4 @@ function removeEventListeners() {
   });
 }
 
-export { placeCarrier };
+export { placeBattleship };
