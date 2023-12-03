@@ -95,29 +95,70 @@ function placeDestroyer(playerGameboard) {
 
 function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
   if (xValue <= 9) {
-    targetCell.classList.add("destroyer");
-    const targetPlusOne = `${xValue + 1}-${yValue}`;
+    const targetPlusOne = document.querySelector(`#P${xValue + 1}-${yValue}`);
+    const hasCarrierClass =
+      targetCell.classList.contains("carrier") ||
+      targetPlusOne.classList.contains("carrier");
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("destroyer");
+    const hasBattleshipClass =
+      targetCell.classList.contains("battleship") ||
+      targetPlusOne.classList.contains("battleship");
 
-    playerGameboard.addShips("destroyer", xValue, yValue, "horizontal");
-    removeEventListeners();
+    const hasCruiserClass =
+      targetCell.classList.contains("cruiser") ||
+      targetPlusOne.classList.contains("cruiser");
 
-    return;
+    const hasSubmarineClass =
+      targetCell.classList.contains("submarine") ||
+      targetPlusOne.classList.contains("submarine");
+
+    if (
+      !hasCarrierClass &&
+      !hasBattleshipClass &&
+      !hasCruiserClass &&
+      !hasSubmarineClass
+    ) {
+      targetCell.classList.add("destroyer");
+      targetPlusOne.classList.add("destroyer");
+
+      playerGameboard.addShips("destroyer", xValue, yValue, "horizontal");
+      removeEventListeners();
+    }
   }
 }
 
 function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
-  if (yValue <= 9) {
-    targetCell.classList.add("destroyer");
-    const targetPlusOne = `${xValue}-${yValue + 1}`;
+  if (xValue <= 9) {
+    const targetPlusOne = document.querySelector(`#P${xValue}-${yValue + 1}`);
 
-    document.querySelector(`#P${targetPlusOne}`).classList.add("destroyer");
+    const hasCarrierClass =
+      targetCell.classList.contains("carrier") ||
+      targetPlusOne.classList.contains("carrier");
 
-    playerGameboard.addShips("destroyer", xValue, yValue, "vertical");
-    removeEventListeners();
+    const hasBattleshipClass =
+      targetCell.classList.contains("battleship") ||
+      targetPlusOne.classList.contains("battleship");
 
-    return;
+    const hasCruiserClass =
+      targetCell.classList.contains("cruiser") ||
+      targetPlusOne.classList.contains("cruiser");
+
+    const hasSubmarineClass =
+      targetCell.classList.contains("submarine") ||
+      targetPlusOne.classList.contains("submarine");
+
+    if (
+      !hasCarrierClass &&
+      !hasBattleshipClass &&
+      !hasCruiserClass &&
+      !hasSubmarineClass
+    ) {
+      targetCell.classList.add("destroyer");
+      targetPlusOne.classList.add("destroyer");
+
+      playerGameboard.addShips("destroyer", xValue, yValue, "vertical");
+      removeEventListeners();
+    }
   }
 }
 
