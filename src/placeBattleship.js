@@ -92,9 +92,13 @@ function placeBattleship(playerGameboard) {
     cell.addEventListener("click", handleClick);
   });
 
-  directionButton.addEventListener("click", () => {
-    directionButton.classList.toggle("vertical");
-  });
+  if (!directionButton.hasAttribute("data-listener-attached")) {
+    directionButton.addEventListener("click", () => {
+      directionButton.classList.toggle("vertical");
+    });
+
+    directionButton.setAttribute("data-listener-attached", true);
+  }
 }
 
 function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
@@ -109,6 +113,7 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
     document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
 
     playerGameboard.addShips("battleship", xValue, yValue, "horizontal");
+    console.log(playerGameboard);
     removeEventListeners();
 
     return;
@@ -127,7 +132,7 @@ function handleVerticalClick(targetCell, xValue, yValue, playerGameboard) {
     document.querySelector(`#P${targetPlusThree}`).classList.add("battleship");
 
     playerGameboard.addShips("battleship", xValue, yValue, "vertical");
-
+    console.log(playerGameboard);
     removeEventListeners();
     return;
   }

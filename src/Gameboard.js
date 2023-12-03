@@ -11,7 +11,6 @@ class Gameboard {
     };
     this.miss = [];
   }
-
   addShips(shipName, x, y, direction) {
     const ship = this.ships[shipName];
     const arrayRange = (start, stop, step) =>
@@ -20,23 +19,25 @@ class Gameboard {
         (value, index) => start + index * step
       );
 
-    for (const eachShip in this.ships) {
-      if (!this.ships[eachShip].x) {
-        this.ships[eachShip].x = [];
-      }
-      if (!this.ships[eachShip].y) {
-        this.ships[eachShip].y = [];
-      }
-      if (
-        this.ships[eachShip].x.includes(x) &&
-        this.ships[eachShip].y.includes(y)
-      ) {
-        console.log("A ship has already been placed here");
-        return;
-      }
-    }
-
     if (direction === "horizontal" && x + ship.shipLength <= 10 && y <= 10) {
+      for (const eachShip in this.ships) {
+        if (!this.ships[eachShip].x) {
+          this.ships[eachShip].x = [];
+        }
+        if (!this.ships[eachShip].y) {
+          this.ships[eachShip].y = [];
+        }
+        if (
+          this.ships[eachShip].x.some((coord) =>
+            arrayRange(x, x + ship.shipLength - 1, 1).includes(coord)
+          ) &&
+          this.ships[eachShip].y.includes(y)
+        ) {
+          console.log("A ship has already been placed here");
+          return;
+        }
+      }
+
       ship.x = arrayRange(x, x + ship.shipLength - 1, 1);
       ship.y = [y];
     } else if (
@@ -44,10 +45,74 @@ class Gameboard {
       x <= 10 &&
       y + ship.shipLength <= 10
     ) {
+      for (const eachShip in this.ships) {
+        if (!this.ships[eachShip].x) {
+          this.ships[eachShip].x = [];
+        }
+        if (!this.ships[eachShip].y) {
+          this.ships[eachShip].y = [];
+        }
+        if (
+          this.ships[eachShip].x.includes(x) &&
+          this.ships[eachShip].y.some((coord) =>
+            arrayRange(y, y + ship.shipLength - 1, 1).includes(coord)
+          )
+        ) {
+          console.log("A ship has already been placed here");
+          return;
+        }
+      }
+
       ship.x = [x];
       ship.y = arrayRange(y, y + ship.shipLength - 1, 1);
     }
+
+    console.log(this.ships);
   }
+
+  // addShips(shipName, x, y, direction) {
+  //   const ship = this.ships[shipName];
+  //   const arrayRange = (start, stop, step) =>
+  //     Array.from(
+  //       { length: (stop - start) / step + 1 },
+  //       (value, index) => start + index * step
+  //     );
+
+  //   if (direction === "horizontal" && x + ship.shipLength <= 10 && y <= 10) {
+  //     for (const eachShip in this.ships) {
+  //       if (!this.ships[eachShip].x) {
+  //         this.ships[eachShip].x = [];
+  //       }
+  //       if (!this.ships[eachShip].y) {
+  //         this.ships[eachShip].y = [];
+  //       }
+  //       if (
+  //         this.ships[eachShip].x.includes(x) &&
+  //         this.ships[eachShip].y.includes(y)
+  //       ) {
+  //         console.log("A ship has already been placed here");
+  //       } else {
+  //         ship.x = arrayRange(x, x + ship.shipLength - 1, 1);
+  //         ship.y = [y];
+  //       }
+  //     }
+  //   } else if (
+  //     direction === "vertical" &&
+  //     x <= 10 &&
+  //     y + ship.shipLength <= 10
+  //   ) {
+  //     if (
+  //       this.ships[eachShip].x.includes(x) &&
+  //       this.ships[eachShip].y.includes(y)
+  //     ) {
+  //       console.log("A ship is already here");
+  //     } else {
+  //       ship.x = [x];
+  //       ship.y = arrayRange(y, y + ship.shipLength - 1, 1);
+  //     }
+  //   }
+  //   console.log(this.ships);
+  // }
 
   receiveAttack(x, y) {
     let hit = false;
