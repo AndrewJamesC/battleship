@@ -66,8 +66,6 @@ class Gameboard {
       ship.x = [x];
       ship.y = arrayRange(y, y + ship.shipLength - 1, 1);
     }
-
-    console.log(this.ships);
   }
 
   receiveAttack(x, y) {
@@ -85,19 +83,6 @@ class Gameboard {
     if (!hit) {
       this.miss.push([x, y]);
     }
-  }
-  computerAddShips(shipName) {
-    function getxy() {
-      return {
-        x: Math.floor(Math.random() * 10) + 1,
-        y: Math.floor(Math.random() * 10) + 1,
-        direction:
-          Math.floor(Math.random() * 2) + 1 === 2 ? "horizontal" : "vertical",
-      };
-    }
-
-    const { x, y, direction } = getxy();
-    this.addShips(shipName, x, y, direction);
   }
 }
 

@@ -1,4 +1,5 @@
 import { gameLoop } from "./index";
+import { placeComputerShips } from "./placeComputerShips";
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
@@ -122,9 +123,9 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
     ) {
       targetCell.classList.add("destroyer");
       targetPlusOne.classList.add("destroyer");
-
       playerGameboard.addShips("destroyer", xValue, yValue, "horizontal");
       removeEventListeners();
+      placeComputerShips("carrier", computerGameboard);
     }
   }
 }

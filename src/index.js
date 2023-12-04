@@ -3,7 +3,7 @@ import Gameboard from "./Gameboard";
 import Player from "./Player";
 import { placeCarrier } from "./placeCarrier";
 
-async function gameLoop() {
+function gameLoop() {
   const playerGameboard = new Gameboard();
   const computerGameboard = new Gameboard();
   const humanPlayer = new Player(playerGameboard, computerGameboard);

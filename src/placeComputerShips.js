@@ -2,6 +2,7 @@ const { gameLoop } = require("../src/index.js");
 const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
   gameLoop();
 
+// check the ships dont over shoot the board
 function placeComputerShips(shipName, computerGameboard) {
   function getxy() {
     return {
@@ -13,65 +14,67 @@ function placeComputerShips(shipName, computerGameboard) {
   }
 
   const { x, y, direction } = getxy();
+  let shipsAdded = { x: [], y: [] };
+  let shipConfig = { x: [], y: [] };
 
   if (direction === "horizontal") {
-    if (shipName === "carrier") {
-      const carrierHoriz = { x: [x, x + 1, x + 2, x + 3, x + 4], y: [y] };
-    } else {
-      let shipConfig = { x: [], y: [] };
+    shipConfig.y.push(y);
+    for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
+      shipConfig.x.push(x + i);
+    }
 
+    while (
+      shipConfig.x.some((coord) => shipsAdded.x.includes(coord)) ||
+      shipConfig.y.some((coord) => shipsAdded.y.includes(coord)) ||
+      shipConfig.x.some((coord) => coord > 10) ||
+      shipConfig.y.some((coord) => coord > 10)
+    ) {
+      const newCoordinates = getxy();
+
+      shipConfig = { x: [], y: [] };
+      shipConfig.y.push(newCoordinates.y);
       for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
-        shipConfig.x.push(x + i);
-        shipConfig.y.push(y);
-      }
-      while (
-        shipConfig.x.some((coord) =>
-          computerGameboard.ships[shipName].x.includes(coord)
-        ) ||
-        shipConfig.y.some((coord) =>
-          computerGameboard.ships[shipName].y.includes(coord)
-        )
-      ) {
-        const newCoordinates = getxy();
-
-        shipConfig = { x: [], y: [] };
-        for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
-          shipConfig.x.push(newCoordinates.x + i);
-          shipConfig.y.push(newCoordinates.y);
-        }
+        shipConfig.x.push(newCoordinates.x + i);
       }
     }
   } else if (direction === "vertical") {
-    if (shipName === "carrier") {
-      const carrierVert = { x: [x], y: [y, y + 1, y + 2, y + 3, y + 4] };
-    } else {
-      let shipConfig = { x: [], y: [] };
+    shipConfig.x.push(x);
+    for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
+      shipConfig.y.push(y + i);
+    }
 
+    while (
+      shipConfig.x.some((coord) => shipsAdded.x.includes(coord)) ||
+      shipConfig.y.some((coord) => shipsAdded.y.includes(coord)) ||
+      shipConfig.x.some((coord) => coord > 10) ||
+      shipConfig.y.some((coord) => coord > 10)
+    ) {
+      const newCoordinates = getxy();
+
+      shipConfig = { x: [], y: [] };
+      shipConfig.x.push(newCoordinates.x);
       for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
-        shipConfig.x.push(x);
-        shipConfig.y.push(y + i);
-      }
-
-      while (
-        shipConfig.x.some((coord) =>
-          computerGameboard.ships[shipName].x.includes(coord)
-        ) ||
-        shipConfig.y.some((coord) =>
-          computerGameboard.ships[shipName].y.includes(coord)
-        )
-      ) {
-        const newCoordinates = getxy();
-
-        shipConfig = { x: [], y: [] };
-        for (let i = 0; i < computerGameboard.ships[shipName].shipLength; i++) {
-          shipConfig.x.push(newCoordinates.x);
-          shipConfig.y.push(newCoordinates.y + i);
-        }
+        shipConfig.y.push(newCoordinates.y + i);
       }
     }
   }
 
+  shipsAdded.x.push(...shipConfig.x);
+  shipsAdded.y.push(...shipConfig.y);
+  shipConfig.x = [];
+  shipConfig.y = [];
+
   computerGameboard.addShips(shipName, x, y, direction);
+  console.table(computerGameboard.ships);
+
+  for (const eachShip in computerGameboard.ships) {
+    if (
+      computerGameboard.ships[eachShip].x.length === 0 ||
+      computerGameboard.ships[eachShip].y.length === 0
+    ) {
+      placeComputerShips(eachShip, computerGameboard);
+    }
+  }
 }
 
 export { placeComputerShips };
