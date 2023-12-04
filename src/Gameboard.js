@@ -10,6 +10,7 @@ class Gameboard {
       destroyer: new Ship("destroyer", 2),
     };
     this.miss = [];
+    this.allSunk = 0;
   }
   addShips(shipName, x, y, direction) {
     const ship = this.ships[shipName];
@@ -76,12 +77,22 @@ class Gameboard {
         hit = true;
         this.ships[ship].hit();
         this.ships[ship].isSunk();
-        break;
+        if (this.ships[ship].isSunk() === true) {
+          this.allSunk++;
+          document.querySelector(
+            ".instructions"
+          ).innerHTML = `You sank the ${this.ships[ship].type}`;
+        }
+        if (this.allSunk === 5) {
+          return "game over";
+        }
+        return "hit";
       }
     }
 
     if (!hit) {
       this.miss.push([x, y]);
+      return "miss";
     }
   }
 }

@@ -1,7 +1,7 @@
 import { gameLoop } from "./index";
 import { placeComputerShips } from "./placeComputerShips";
-const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
-  gameLoop();
+// const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
+//   gameLoop();
 
 function handleHorizontalPlacement(targetCell, xValue, yValue) {
   if (xValue <= 9) {
@@ -125,7 +125,6 @@ function handleHorizontalClick(targetCell, xValue, yValue, playerGameboard) {
       targetPlusOne.classList.add("destroyer");
       playerGameboard.addShips("destroyer", xValue, yValue, "horizontal");
       removeEventListeners();
-      placeComputerShips("carrier", computerGameboard);
     }
   }
 }

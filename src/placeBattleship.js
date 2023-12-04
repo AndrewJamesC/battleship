@@ -1,7 +1,7 @@
 import { gameLoop } from "./index";
 import { placeCruiser } from "./placeCruiser";
-const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
-  gameLoop();
+// const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
+//   gameLoop();
 
 function handleHorizontalPlacement(targetCell, xValue, yValue) {
   if (xValue <= 7) {

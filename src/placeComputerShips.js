@@ -1,8 +1,3 @@
-const { gameLoop } = require("../src/index.js");
-const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
-  gameLoop();
-
-// check the ships dont over shoot the board
 function placeComputerShips(shipName, computerGameboard) {
   function getxy() {
     return {
@@ -65,12 +60,14 @@ function placeComputerShips(shipName, computerGameboard) {
   shipConfig.y = [];
 
   computerGameboard.addShips(shipName, x, y, direction);
-  console.table(computerGameboard.ships);
 
   for (const eachShip in computerGameboard.ships) {
+    const ship = computerGameboard.ships[eachShip];
     if (
-      computerGameboard.ships[eachShip].x.length === 0 ||
-      computerGameboard.ships[eachShip].y.length === 0
+      !Array.isArray(ship.x) ||
+      ship.x.length === 0 ||
+      !Array.isArray(ship.y) ||
+      ship.y.length === 0
     ) {
       placeComputerShips(eachShip, computerGameboard);
     }

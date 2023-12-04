@@ -1,8 +1,8 @@
 import { gameLoop } from "./index";
 import { placeDestroyer } from "./placeDestroyer";
 
-const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
-  gameLoop();
+// const { playerGameboard, computerGameboard, humanPlayer, computerPlayer } =
+//   gameLoop();
 
 function handleHorizontalPlacement(targetCell, xValue, yValue) {
   if (xValue <= 8) {
